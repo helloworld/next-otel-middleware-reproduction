@@ -8,7 +8,7 @@ We attemped to do this by creating a middleware that creates spans for incoming 
 
 - The spans created in `middleware.ts` don't end up getting exported. This is obviously because of the point above—the tracer we fetch is not the same as the one defined in `node.instrumentation.ts`
 
-Any guidance on how to get Otel working within Next.js middleware or alternatie suggestions (othern than using middleware) would be greatly appreciated.
+Any guidance on how to get Otel working within Next.js middleware or alternative suggestions (to create spans with request/response header/body information outside of middleware) would be greatly appreciated.
 
 ## Reproduction Steps
 
