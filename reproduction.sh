@@ -2,7 +2,8 @@
 
 # Start the Next.js app in development mode
 # Redirect output to output.log
-npm run dev > output.log 2>&1 &
+npm run build
+npm run start > output.log 2>&1 &
 
 # Get the process ID of the command we just ran.
 PID=$!
@@ -17,7 +18,14 @@ done
 echo ""
 
 # Make API request
+echo "Making API request..."
 curl http://localhost:3000/api/hello
+
+echo ""
+echo "Done. Check output.log for the results."
 
 # Kill the server
 kill $PID
+
+# Remove ANSI escape codes
+sed -i '' 's/\x1b\[[0-9;]*m//g' output.log

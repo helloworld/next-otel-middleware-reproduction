@@ -1,3 +1,4 @@
+import { trace } from "@opentelemetry/api";
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import { NodeSDK } from "@opentelemetry/sdk-node";
@@ -24,3 +25,6 @@ process.on("SIGTERM", () => {
     .catch((error) => console.log("Error terminating tracing", error))
     .finally(() => process.exit(0));
 });
+
+const tracer = trace.getTracer("test-app");
+console.log("Tracer from instrumentation.node.ts:", tracer);
