@@ -4,7 +4,7 @@ We attemped to do this by creating a middleware that creates spans for incoming 
 
 - By fetching a tracer in `middleware.ts`, the Next.js framework seems to create a duplicate root span to the root span created by the Next.js framework (see [3] and [4]).
 
-- When we attempt to get the tracer in ` middleware.ts`, the returned object mirrors what one gets when Otel hasn't been initialized properly and does not match the tracer in `node.instrumentation.ts`` (see [1] and [2]).
+- When we attempt to get the tracer in `middleware.ts`, the returned object mirrors what one gets when Otel hasn't been initialized properly and does not match the tracer in `node.instrumentation.ts`` (see [1] and [2]).
 
 - The spans created in `middleware.ts` don't end up getting exported. This is obviously because of the point above—the tracer we fetch is not the same as the one defined in `node.instrumentation.ts`
 
