@@ -1,4 +1,4 @@
-import { trace } from "@opentelemetry/api";
+import { trace, context, SpanKind } from "@opentelemetry/api";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
@@ -7,5 +7,20 @@ export async function middleware(req: NextRequest) {
   const tracer = trace.getTracer("test-app");
   console.log("Tracer from middleware:", tracer);
 
-  return NextResponse.next();
+  // Create a span
+  const span = tracer.startSpan(
+    "NEXT_DEBUG",
+    {
+      kind: SpanKind.SERVER,
+    },
+    context.active()
+  );
+
+  const ctx = trace.setSpan(context.active(), span);
+
+  return await context.with(ctx, async () => {
+    const response = NextResponse.next();
+    span.end();
+    return response;
+  });
 }

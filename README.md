@@ -1,40 +1,105 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+We are trying to create OpenTelemetry spans for incoming HTTP requests to the Next.js server. Next.js already creates spans for incoming HTTP requests to the Next.js server, but we are trying to create our own that are associated with the root spans created by the Next.js framework that have additional information about the request. Specifically, our goal is to record request and response headers and bodies.
 
-## Getting Started
+We attemped to do this by creating a middleware that creates spans for incoming HTTP requests to the Next.js server. Unfortunately, this middleware is not working as expected:
 
-First, run the development server:
+- By fetching a tracer in `middleware.ts`, the Next.js framework seems to create a duplicate root span to the root span created by the Next.js framework (see [3] and [4]).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- When we attempt to get the tracer in ` middleware.ts`, the returned object mirrors what one gets when Otel hasn't been initialized properly and does not match the tracer in `node.instrumentation.ts`` (see [1] and [2]).
+
+- The spans created in `middleware.ts` don't end up getting exported. This is obviously because of the point above—the tracer we fetch is not the same as the one defined in `node.instrumentation.ts`
+
+Any guidance on how to get Otel working within Next.js middleware or alternatie suggestions (othern than using middleware) would be greatly appreciated.
+
+## Reproduction Steps
+
+1. Run `npm install`.
+2. Run `./reproduction.sh`. This will build the app, start the server, make an API request to `/api/hello`. All output will be logged to `output.log`.
+3. Inspect the contents of `output.log`.
+
+## Relevant Files
+
+- [middleware.ts](src/middleware.ts) uses Otel within the middleware and attempts to create a span within the context of a request.
+- [instrumentation.node.ts](src/instrumentation.node.ts) sets up the Otel Node SDK and initializes tracing.
+
+## Relevant Output
+
+[1] Tracer from `middleware.ts`:
+
+```
+Tracer from middleware: ProxyTracer {
+  _provider: ProxyTracerProvider {  },
+  name: 'test-app',
+  version: undefined,
+  options: undefined
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[2] Tracer from `instrumentation.node.ts`:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+Tracer from instrumentation.node.ts: <ref *1> Tracer {
+  _tracerProvider: NodeTracerProvider {
+    _registeredSpanProcessors: [ [SimpleSpanProcessor] ],
+    _tracers: Map(1) { 'test-app@:' => [Circular *1] },
+    resource: Resource {
+      _attributes: [Object],
+      asyncAttributesPending: true,
+      _syncAttributes: [Object],
+      _asyncAttributesPromise: [Promise]
+    },
+    _config: {
+      sampler: [ParentBasedSampler],
+      forceFlushTimeoutMillis: 30000,
+      generalLimits: [Object],
+      spanLimits: [Object],
+      resource: [Resource]
+    },
+    activeSpanProcessor: MultiSpanProcessor { _spanProcessors: [Array] }
+  },
+  _sampler: ParentBasedSampler {
+    _root: AlwaysOnSampler {},
+    _remoteParentSampled: AlwaysOnSampler {},
+    _remoteParentNotSampled: AlwaysOffSampler {},
+    _localParentSampled: AlwaysOnSampler {},
+    _localParentNotSampled: AlwaysOffSampler {}
+  },
+  _generalLimits: { attributeValueLengthLimit: Infinity, attributeCountLimit: 128 },
+  _spanLimits: {
+    attributeValueLengthLimit: Infinity,
+    attributeCountLimit: 128,
+    linkCountLimit: 128,
+    eventCountLimit: 128,
+    attributePerEventCountLimit: 128,
+    attributePerLinkCountLimit: 128
+  },
+  _idGenerator: RandomIdGenerator {
+    generateTraceId: [Function: generateId],
+    generateSpanId: [Function: generateId]
+  },
+  resource: Resource {
+    _attributes: {
+      'service.name': 'test-app',
+      'telemetry.sdk.language': 'nodejs',
+      'telemetry.sdk.name': 'opentelemetry',
+      'telemetry.sdk.version': '1.17.0'
+    },
+    asyncAttributesPending: true,
+    _syncAttributes: {
+      'service.name': 'test-app',
+      'telemetry.sdk.language': 'nodejs',
+      'telemetry.sdk.name': 'opentelemetry',
+      'telemetry.sdk.version': '1.17.0'
+    },
+    _asyncAttributesPromise: Promise { <pending> }
+  },
+  instrumentationLibrary: { name: 'test-app', version: undefined, schemaUrl: undefined }
+}
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[3] Span from `middleware.ts`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+TODO
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+[4] Span from Next.js framework
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+TODO
