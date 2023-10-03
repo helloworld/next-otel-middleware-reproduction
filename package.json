@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@opentelemetry/resources": "^1.17.0",
+    "@opentelemetry/sdk-node": "^0.43.0",
+    "@opentelemetry/sdk-trace-base": "^1.17.0",
+    "@opentelemetry/semantic-conventions": "^1.17.0",
     "next": "^13.4.19",
     "react": "^18",
     "react-dom": "^18"
