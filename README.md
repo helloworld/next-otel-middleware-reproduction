@@ -25,6 +25,8 @@ Any guidance on how to get Otel working within Next.js middleware or alternatie 
 
 [1] Tracer from `middleware.ts`:
 
+https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L70-L75
+
 ```
 Tracer from middleware: ProxyTracer {
   _provider: ProxyTracerProvider {  },
@@ -35,6 +37,8 @@ Tracer from middleware: ProxyTracer {
 ```
 
 [2] Tracer from `instrumentation.node.ts`:
+
+https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L13-L69
 
 ```
 Tracer from instrumentation.node.ts: <ref *1> Tracer {
@@ -98,8 +102,8 @@ Tracer from instrumentation.node.ts: <ref *1> Tracer {
 
 [3] Span from `middleware.ts`
 
-TODO
+[TODO](https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L76-L95)https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L76-L95
 
 [4] Span from Next.js framework
 
-TODO
+[TODO](https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L171-L192)https://github.com/helloworld/next-otel-middleware-reproduction/blob/master/output.log#L171-L192
