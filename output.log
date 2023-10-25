@@ -5,28 +5,28 @@
 - ready started server on [::]:3000, url: http://localhost:3000
 Request recorded
 {
-  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
-  parentId: '22b99815e05ff681',
+  traceId: 'b63a402a775f247daddb88d92d79bbef',
+  parentId: '15bfe92ab8d8fb00',
   traceState: undefined,
   name: 'ROOT_HTTP_REQUEST_DATA',
-  id: '3071b5e5173bc18e',
+  id: '465d59d6664b7f31',
   kind: 1,
-  timestamp: 1698267513202000,
-  duration: 19226.083,
+  timestamp: 1698268126519000,
+  duration: 19909.583,
   attributes: {},
   status: { code: 0 },
   events: [],
   links: []
 }
 {
-  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
-  parentId: '5c1e7f236b24f9ea',
+  traceId: 'b63a402a775f247daddb88d92d79bbef',
+  parentId: '5ce6c7a6ff94f4d7',
   traceState: undefined,
   name: 'executing api route (pages) /api/hello',
-  id: '22b99815e05ff681',
+  id: '15bfe92ab8d8fb00',
   kind: 0,
-  timestamp: 1698267513202000,
-  duration: 232191,
+  timestamp: 1698268126518000,
+  duration: 238892.375,
   attributes: {
     'next.span_name': 'executing api route (pages) /api/hello',
     'next.span_type': 'Node.runHandler'
@@ -36,14 +36,14 @@ Request recorded
   links: []
 }
 {
-  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
+  traceId: 'b63a402a775f247daddb88d92d79bbef',
   parentId: undefined,
   traceState: undefined,
   name: 'GET /api/hello',
-  id: '5c1e7f236b24f9ea',
+  id: '5ce6c7a6ff94f4d7',
   kind: 1,
-  timestamp: 1698267513164000,
-  duration: 270539.042,
+  timestamp: 1698268126479000,
+  duration: 278070.292,
   attributes: {
     'next.span_name': 'GET /api/hello',
     'next.span_type': 'BaseServer.handleRequest',

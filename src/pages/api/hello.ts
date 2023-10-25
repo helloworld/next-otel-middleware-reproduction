@@ -1,17 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { trace, SpanKind, context, Span } from "@opentelemetry/api";
-import { ClientRequest, ServerResponse } from "http";
 import axios from "axios";
 
 type THandler =
   | ((req: NextApiRequest, res: NextApiResponse<unknown>) => void)
   | ((req: NextApiRequest, res: NextApiResponse<unknown>) => Promise<void>);
 
-function handleOutgoingMesssage(
-  httpObject: ClientRequest | ServerResponse,
-  span: Span
-) {
+function handleOutgoingMesssage(httpObject: any, span: Span) {
   const spanBodyAttrName = "http.response.body";
 
   const httpBodyChunks: any = [];
@@ -72,6 +68,11 @@ export default __wrap(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // 1:
   const response = await axios.get(`https://api.github.com/users/helloworld`);
+
+  // 2:
+  // const response = { data: { name: "Hello World" } };
+
   res.status(200).json(response.data);
 });
