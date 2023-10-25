@@ -2,164 +2,31 @@
 > otel-middleware@0.1.0 start
 > next start
 
-(node:63224) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
-(Use `node --trace-warnings ...` to show where the warning was created)
 - ready started server on [::]:3000, url: http://localhost:3000
-(node:63227) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
-(Use `node --trace-warnings ...` to show where the warning was created)
-(node:63228) ExperimentalWarning: stream/web is an experimental feature. This feature could change at any time
-(Use `node --trace-warnings ...` to show where the warning was created)
-Tracing initialized
-Tracer from instrumentation.node.ts: <ref *1> Tracer {
-  _tracerProvider: NodeTracerProvider {
-    _registeredSpanProcessors: [ [SimpleSpanProcessor] ],
-    _tracers: Map(1) { 'test-app@:' => [Circular *1] },
-    resource: Resource {
-      _attributes: [Object],
-      asyncAttributesPending: true,
-      _syncAttributes: [Object],
-      _asyncAttributesPromise: [Promise]
-    },
-    _config: {
-      sampler: [ParentBasedSampler],
-      forceFlushTimeoutMillis: 30000,
-      generalLimits: [Object],
-      spanLimits: [Object],
-      resource: [Resource]
-    },
-    activeSpanProcessor: MultiSpanProcessor { _spanProcessors: [Array] }
-  },
-  _sampler: ParentBasedSampler {
-    _root: AlwaysOnSampler {},
-    _remoteParentSampled: AlwaysOnSampler {},
-    _remoteParentNotSampled: AlwaysOffSampler {},
-    _localParentSampled: AlwaysOnSampler {},
-    _localParentNotSampled: AlwaysOffSampler {}
-  },
-  _generalLimits: { attributeValueLengthLimit: Infinity, attributeCountLimit: 128 },
-  _spanLimits: {
-    attributeValueLengthLimit: Infinity,
-    attributeCountLimit: 128,
-    linkCountLimit: 128,
-    eventCountLimit: 128,
-    attributePerEventCountLimit: 128,
-    attributePerLinkCountLimit: 128
-  },
-  _idGenerator: RandomIdGenerator {
-    generateTraceId: [Function: generateId],
-    generateSpanId: [Function: generateId]
-  },
-  resource: Resource {
-    _attributes: {
-      'service.name': 'test-app',
-      'telemetry.sdk.language': 'nodejs',
-      'telemetry.sdk.name': 'opentelemetry',
-      'telemetry.sdk.version': '1.17.0'
-    },
-    asyncAttributesPending: true,
-    _syncAttributes: {
-      'service.name': 'test-app',
-      'telemetry.sdk.language': 'nodejs',
-      'telemetry.sdk.name': 'opentelemetry',
-      'telemetry.sdk.version': '1.17.0'
-    },
-    _asyncAttributesPromise: Promise { <pending> }
-  },
-  instrumentationLibrary: { name: 'test-app', version: undefined, schemaUrl: undefined }
-}
-Tracer from middleware: ProxyTracer {
-  _provider: ProxyTracerProvider {  },
-  name: 'test-app',
-  version: undefined,
-  options: undefined
-}
+Request recorded
 {
-  traceId: '703625e74579398aac25193217deddfd',
-  parentId: undefined,
+  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
+  parentId: '22b99815e05ff681',
   traceState: undefined,
-  name: 'GET /api/hello',
-  id: '73c97662f03fa63f',
+  name: 'ROOT_HTTP_REQUEST_DATA',
+  id: '3071b5e5173bc18e',
   kind: 1,
-  timestamp: 1696370634949000,
-  duration: 42285.416,
-  attributes: {
-    'next.span_name': 'GET /api/hello',
-    'next.span_type': 'BaseServer.handleRequest',
-    'http.method': 'GET',
-    'http.target': '/api/hello',
-    'http.status_code': 200
-  },
+  timestamp: 1698267513202000,
+  duration: 19226.083,
+  attributes: {},
   status: { code: 0 },
   events: [],
   links: []
 }
-Tracing initialized
-Tracer from instrumentation.node.ts: <ref *1> Tracer {
-  _tracerProvider: NodeTracerProvider {
-    _registeredSpanProcessors: [ [SimpleSpanProcessor] ],
-    _tracers: Map(1) { 'test-app@:' => [Circular *1] },
-    resource: Resource {
-      _attributes: [Object],
-      asyncAttributesPending: true,
-      _syncAttributes: [Object],
-      _asyncAttributesPromise: [Promise]
-    },
-    _config: {
-      sampler: [ParentBasedSampler],
-      forceFlushTimeoutMillis: 30000,
-      generalLimits: [Object],
-      spanLimits: [Object],
-      resource: [Resource]
-    },
-    activeSpanProcessor: MultiSpanProcessor { _spanProcessors: [Array] }
-  },
-  _sampler: ParentBasedSampler {
-    _root: AlwaysOnSampler {},
-    _remoteParentSampled: AlwaysOnSampler {},
-    _remoteParentNotSampled: AlwaysOffSampler {},
-    _localParentSampled: AlwaysOnSampler {},
-    _localParentNotSampled: AlwaysOffSampler {}
-  },
-  _generalLimits: { attributeValueLengthLimit: Infinity, attributeCountLimit: 128 },
-  _spanLimits: {
-    attributeValueLengthLimit: Infinity,
-    attributeCountLimit: 128,
-    linkCountLimit: 128,
-    eventCountLimit: 128,
-    attributePerEventCountLimit: 128,
-    attributePerLinkCountLimit: 128
-  },
-  _idGenerator: RandomIdGenerator {
-    generateTraceId: [Function: generateId],
-    generateSpanId: [Function: generateId]
-  },
-  resource: Resource {
-    _attributes: {
-      'service.name': 'test-app',
-      'telemetry.sdk.language': 'nodejs',
-      'telemetry.sdk.name': 'opentelemetry',
-      'telemetry.sdk.version': '1.17.0'
-    },
-    asyncAttributesPending: true,
-    _syncAttributes: {
-      'service.name': 'test-app',
-      'telemetry.sdk.language': 'nodejs',
-      'telemetry.sdk.name': 'opentelemetry',
-      'telemetry.sdk.version': '1.17.0'
-    },
-    _asyncAttributesPromise: Promise { <pending> }
-  },
-  instrumentationLibrary: { name: 'test-app', version: undefined, schemaUrl: undefined }
-}
 {
-  traceId: '808bb74c9823cd50af3c376ff4778786',
-  parentId: '965f652fb0b5a519',
+  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
+  parentId: '5c1e7f236b24f9ea',
   traceState: undefined,
   name: 'executing api route (pages) /api/hello',
-  id: '30ded6d7da02063d',
+  id: '22b99815e05ff681',
   kind: 0,
-  timestamp: 1696370635098000,
-  duration: 1109.083,
+  timestamp: 1698267513202000,
+  duration: 232191,
   attributes: {
     'next.span_name': 'executing api route (pages) /api/hello',
     'next.span_type': 'Node.runHandler'
@@ -169,14 +36,14 @@ Tracer from instrumentation.node.ts: <ref *1> Tracer {
   links: []
 }
 {
-  traceId: '808bb74c9823cd50af3c376ff4778786',
+  traceId: 'def13bd38ec85676aa1bc1f4820d474d',
   parentId: undefined,
   traceState: undefined,
   name: 'GET /api/hello',
-  id: '965f652fb0b5a519',
+  id: '5c1e7f236b24f9ea',
   kind: 1,
-  timestamp: 1696370635087000,
-  duration: 12238.083,
+  timestamp: 1698267513164000,
+  duration: 270539.042,
   attributes: {
     'next.span_name': 'GET /api/hello',
     'next.span_type': 'BaseServer.handleRequest',

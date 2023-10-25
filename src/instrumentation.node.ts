@@ -15,7 +15,6 @@ const sdk = new NodeSDK({
 });
 
 sdk.start();
-console.log("Tracing initialized");
 
 // gracefully shut down the SDK on process exit
 process.on("SIGTERM", () => {
@@ -27,4 +26,3 @@ process.on("SIGTERM", () => {
 });
 
 const tracer = trace.getTracer("test-app");
-console.log("Tracer from instrumentation.node.ts:", tracer);

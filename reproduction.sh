@@ -25,7 +25,7 @@ echo ""
 echo "Done. Check output.log for the results."
 
 # Kill the server
-kill $PID
+kill $(lsof -t -i:3000)
 
 # Remove ANSI escape codes
 sed -i '' 's/\x1b\[[0-9;]*m//g' output.log
